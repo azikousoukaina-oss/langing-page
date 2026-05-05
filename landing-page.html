@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Landing Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    header {
+      background: #667eea;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+    
+    header nav {
+      display: flex;
+      gap: 20px;
+    }
+    
+    header nav a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    header nav a:hover {
+      text-decoration: underline;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .hero button {
+      padding: 12px 30px;
+      background: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    
+    .hero button:hover {
+      background: #f0f0f0;
+    }
+    
+    .features {
+      display: flex;
+      justify-content: space-around;
+      padding: 60px 20px;
+      background: #f5f5f5;
+    }
+    
+    .feature-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 30%;
+      transition: 0.3s;
+    }
+    
+    .feature-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+    }
+    
+    .feature-box h3 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+    
+    .feature-box p {
+      color: #666;
+    }
+    
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    </style>
+<body>
+    <header>
+        <h1>TechStudio</h1>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+      
+      <section class="hero">
+        <h1>Welcome to TechStudio</h1>
+        <p>Build Amazing Websites</p>
+        <button>Learn More</button>
+      </section>
+      <section class="features">
+        <div class="feature-box">
+          <h3>⚡ Fast</h3>
+          <p>Lightning quick performance</p>
+        </div>
+      
+        <div class="feature-box">
+          <h3>📱 Responsive</h3>
+          <p>Works on all devices</p>
+        </div>
+      
+        <div class="feature-box">
+          <h3>🎨 Modern</h3>
+          <p>Latest web technologies</p>
+        </div>
+      </section>
+      <footer>
+        <p>&copy; 2026 TechStudio | Web Development</p>
+      </footer>
+</body>
+</html>
