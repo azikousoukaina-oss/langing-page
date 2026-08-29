@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; script-src 'self'" />
+  <title>Personal Browser</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="chrome">
+    <div class="tab-bar" id="tab-bar">
+      <div class="tabs" id="tabs"></div>
+      <button class="icon-btn" id="new-tab" title="New tab (Ctrl+T)">+</button>
+    </div>
+
+    <div class="toolbar">
+      <button class="icon-btn" id="back" title="Back">‹</button>
+      <button class="icon-btn" id="forward" title="Forward">›</button>
+      <button class="icon-btn" id="reload" title="Reload (Ctrl+R)">↻</button>
+      <button class="icon-btn" id="home" title="Home">⌂</button>
+      <form id="omnibox-form" class="omnibox-form">
+        <input id="omnibox" type="text" spellcheck="false" placeholder="Search Google or type a URL" />
+      </form>
+      <button class="icon-btn" id="star" title="Bookmark (Ctrl+D)">☆</button>
+      <button class="icon-btn" id="history-btn" title="History (Ctrl+H)">◷</button>
+    </div>
+
+    <div class="bookmarks-bar" id="bookmarks-bar"></div>
+    <div class="status" id="status" hidden></div>
+  </div>
+
+  <div class="views" id="views"></div>
+
+  <aside class="panel" id="history-panel" hidden>
+    <div class="panel-head">
+      <h2>History</h2>
+      <div>
+        <button class="text-btn" id="clear-history">Clear</button>
+        <button class="icon-btn" id="close-history">✕</button>
+      </div>
+    </div>
+    <div class="panel-list" id="history-list"></div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
