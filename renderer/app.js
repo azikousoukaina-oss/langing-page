@@ -68,6 +68,7 @@ function renderTabs() {
 
 function renderBookmarks() {
   bookmarksBar.innerHTML = "";
+  bookmarksBar.classList.toggle("visible", bookmarks.length > 0);
   for (const b of bookmarks) {
     const chip = document.createElement("button");
     chip.className = "bookmark-chip";
@@ -205,8 +206,13 @@ document.getElementById("reload").addEventListener("click", () => {
   else view.reload();
 });
 document.getElementById("star").addEventListener("click", toggleBookmark);
-document.getElementById("history-btn").addEventListener("click", () => {
+document.getElementById("history-btn").addEventListener("click", (e) => {
+  e.stopPropagation();
   historyPanel.hidden = !historyPanel.hidden;
+});
+historyPanel.addEventListener("click", (e) => e.stopPropagation());
+document.addEventListener("click", () => {
+  historyPanel.hidden = true;
 });
 document.getElementById("close-history").addEventListener("click", () => {
   historyPanel.hidden = true;
