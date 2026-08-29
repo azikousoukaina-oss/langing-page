@@ -143,6 +143,9 @@ function attachView(view, tab) {
   view.addEventListener("new-window", (e) => {
     createTab(e.url);
   });
+  view.addEventListener("focus", () => {
+    historyPanel.hidden = true;
+  });
 }
 
 function createTab(url = homeUrl, focus = true) {
@@ -210,13 +213,18 @@ document.getElementById("history-btn").addEventListener("click", (e) => {
   e.stopPropagation();
   historyPanel.hidden = !historyPanel.hidden;
 });
-historyPanel.addEventListener("click", (e) => e.stopPropagation());
-document.addEventListener("click", () => {
-  historyPanel.hidden = true;
-});
 document.getElementById("close-history").addEventListener("click", () => {
   historyPanel.hidden = true;
 });
+document.addEventListener(
+  "mousedown",
+  (e) => {
+    if (historyPanel.hidden) return;
+    if (e.target.closest("#history-panel") || e.target.closest("#history-btn")) return;
+    historyPanel.hidden = true;
+  },
+  true
+);
 document.getElementById("clear-history").addEventListener("click", async () => {
   history = await window.browser.clearHistory();
   renderHistory();
