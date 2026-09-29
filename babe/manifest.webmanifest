@@ -1,7 +1,7 @@
 {
   "name": "Babe — وكيلك الخاص",
   "short_name": "Babe",
-  "description": "Private AI messenger that chats in Egyptian dialect.",
+  "description": "Babe — حبيبك الذكي. شات وفويس ومكالمات بالمصري.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
