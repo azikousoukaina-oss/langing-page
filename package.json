@@ -1,0 +1,21 @@
+{
+  "name": "babe-messenger",
+  "version": "1.0.0",
+  "description": "Babe \u2014 private Egyptian-dialect AI messenger",
+  "scripts": {
+    "start": "python3 -m http.server 8765 --bind 127.0.0.1 --directory babe",
+    "deploy": "surge ./babe babe-ai-messenger.surge.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azikousoukaina-oss/langing-page.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azikousoukaina-oss/langing-page/issues"
+  },
+  "homepage": "https://github.com/azikousoukaina-oss/langing-page#readme",
+  "devDependencies": {
+    "surge": "^0.44.4"
+  },
+  "private": true
+}

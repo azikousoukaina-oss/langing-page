@@ -32,6 +32,7 @@
     input: document.getElementById("input"),
     sendBtn: document.getElementById("sendBtn"),
     micBtn: document.getElementById("micBtn"),
+    installBtn: document.getElementById("installBtn"),
     speakToggle: document.getElementById("speakToggle"),
     settingsBtn: document.getElementById("settingsBtn"),
     settingsSheet: document.getElementById("settingsSheet"),
@@ -42,6 +43,9 @@
     saveSettings: document.getElementById("saveSettings"),
     statusLine: document.getElementById("statusLine"),
   };
+
+  /** @type {BeforeInstallPromptEvent | null} */
+  let deferredInstall = null;
 
   /** @type {{role: 'user'|'assistant', content: string, at: number}[]} */
   let messages = [];
@@ -357,6 +361,36 @@
 
   if (window.speechSynthesis) {
     speechSynthesis.onvoiceschanged = () => pickArabicVoice();
+  }
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredInstall = e;
+    if (els.installBtn) els.installBtn.hidden = false;
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredInstall = null;
+    if (els.installBtn) els.installBtn.hidden = true;
+  });
+
+  els.installBtn?.addEventListener("click", async () => {
+    if (!deferredInstall) return;
+    deferredInstall.prompt();
+    try {
+      await deferredInstall.userChoice;
+    } finally {
+      deferredInstall = null;
+      els.installBtn.hidden = true;
+    }
+  });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch((err) => {
+        console.warn("SW register failed:", err);
+      });
+    });
   }
 
   messages = loadMessages();
