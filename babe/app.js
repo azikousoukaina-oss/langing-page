@@ -561,11 +561,18 @@
 
   // ---- Call mode ----
   function openCall(open) {
+    if (!els.callScreen) return;
+    if (open) els.callScreen.removeAttribute("hidden");
+    else els.callScreen.setAttribute("hidden", "");
     els.callScreen.hidden = !open;
   }
 
   function startCall() {
-    if (callActive || busy) return;
+    if (callActive) return;
+    if (busy) {
+      // don't block the call UI if a reply is still finishing
+      setBusy(false);
+    }
     callActive = true;
     callMuted = false;
     callSpeaking = false;
@@ -574,20 +581,28 @@
     els.callLabel.textContent = "متصل";
     els.callCaption.textContent = "اتكلمي عادي… هو سامعك";
     openCall(true);
-    speak("ألا أهو يا قلبي، أنا سامعك. قولي عايزة تقولي إيه؟", {
-      force: true,
-      onend: () => {
-        if (callActive) beginCallListen();
-      },
-    });
+    clearInterval(callTimerId);
     callTimerId = setInterval(() => {
-      els.callTimer.textContent = formatDuration((Date.now() - callStartedAt) / 1000).padStart(5, "0");
-      // ensure mm:ss with 2 digit minutes feel
       const sec = Math.floor((Date.now() - callStartedAt) / 1000);
       const mm = String(Math.floor(sec / 60)).padStart(2, "0");
       const ss = String(sec % 60).padStart(2, "0");
       els.callTimer.textContent = `${mm}:${ss}`;
     }, 500);
+
+    try {
+      speak("ألا أهو يا قلبي، أنا سامعك. قولي عايزة تقولي إيه؟", {
+        force: true,
+        onend: () => {
+          if (callActive) beginCallListen();
+        },
+      });
+      // fallback if speech onend never fires
+      setTimeout(() => {
+        if (callActive && !callSpeaking && !callMuted) beginCallListen();
+      }, 4000);
+    } catch {
+      if (callActive) beginCallListen();
+    }
   }
 
   function endCall() {
