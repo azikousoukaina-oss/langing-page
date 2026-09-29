@@ -191,6 +191,19 @@
       const bubble = document.createElement("div");
       bubble.className = `msg ${m.role === "user" ? "me" : "babe"}${m.type === "voice" ? " voice" : ""}`;
 
+      const more = document.createElement("button");
+      more.type = "button";
+      more.className = "msg-more";
+      more.title = "خيارات";
+      more.setAttribute("aria-label", "خيارات الرسالة");
+      more.textContent = "⋯";
+      more.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const r = more.getBoundingClientRect();
+        showMenu(r.left + r.width / 2, r.top, m.id);
+      });
+      bubble.appendChild(more);
+
       if (m.type === "voice") {
         const voice = document.createElement("button");
         voice.type = "button";
@@ -813,7 +826,11 @@
     onPressEnd();
   });
 
-  els.callBtn.addEventListener("click", startCall);
+  els.callBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startCall();
+  });
   els.endCallBtn.addEventListener("click", endCall);
   els.muteBtn.addEventListener("click", () => {
     callMuted = !callMuted;

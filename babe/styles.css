@@ -315,8 +315,12 @@ body {
   font-style: normal;
 }
 
-.typing[hidden] {
-  display: none;
+.typing[hidden],
+.record-bar[hidden],
+.msg-menu[hidden],
+.sheet[hidden],
+.call-screen[hidden] {
+  display: none !important;
 }
 
 .typing span {
@@ -370,6 +374,33 @@ body {
 
 .msg-wrap .msg {
   max-width: 100%;
+  position: relative;
+}
+
+.msg-more {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--sand-dim);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.msg-wrap.me .msg-more {
+  left: auto;
+  right: 4px;
+}
+
+.msg-more:hover {
+  background: rgba(224, 164, 90, 0.25);
+  color: var(--amber);
 }
 
 .msg.voice {
@@ -450,10 +481,6 @@ body {
   border-top: 1px solid rgba(200, 107, 90, 0.25);
 }
 
-.record-bar[hidden] {
-  display: none;
-}
-
 .record-bar em {
   font-style: normal;
   color: var(--sand-dim);
@@ -479,10 +506,6 @@ body {
   box-shadow: var(--shadow);
   display: grid;
   gap: 2px;
-}
-
-.msg-menu[hidden] {
-  display: none;
 }
 
 .msg-menu button {
@@ -527,10 +550,6 @@ body {
   z-index: 50;
   display: grid;
   place-items: center;
-}
-
-.call-screen[hidden] {
-  display: none;
 }
 
 .call-bg {
@@ -725,10 +744,6 @@ body {
   opacity: 0.45;
   cursor: not-allowed;
   transform: none;
-}
-
-.sheet[hidden] {
-  display: none;
 }
 
 .sheet {
