@@ -195,25 +195,45 @@ Global rules for Mesh:
 - Do not claim you are offline or rate-limited; if unsure, still give your best helpful answer.`;
   }
 
+  async function fetchWithTimeout(url, options, ms = 28000) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), ms);
+    try {
+      return await fetch(url, { ...options, signal: ctrl.signal });
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
   async function callModel(history, mode) {
     const payload = {
       model: "openai",
       temperature: 0.85,
       messages: [{ role: "system", content: systemPrompt(mode) }, ...history],
     };
-    const res = await fetch(API, {
+    const opts = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const content =
-      data?.choices?.[0]?.message?.content ||
-      data?.message?.content ||
-      "";
-    if (!String(content).trim()) throw new Error("empty");
-    return String(content).trim();
+    };
+    let lastErr;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const res = await fetchWithTimeout(API, opts, 28000);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const content =
+          data?.choices?.[0]?.message?.content ||
+          data?.message?.content ||
+          "";
+        if (!String(content).trim()) throw new Error("empty");
+        return String(content).trim();
+      } catch (err) {
+        lastErr = err;
+        await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+      }
+    }
+    throw lastErr || new Error("failed");
   }
 
   function fallback(userText, mode) {
