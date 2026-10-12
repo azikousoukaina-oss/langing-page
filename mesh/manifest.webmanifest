@@ -1,0 +1,24 @@
+{
+  "name": "Mesh — free AI",
+  "short_name": "Mesh",
+  "description": "Free always-on AI. Many modes. Talk about anything. Never wait.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071016",
+  "theme_color": "#071016",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "mesh-free-ai",
+  "version": "1.0.0",
+  "description": "Mesh \u2014 free always-on AI with many modes",
+  "main": "index.js",
+  "scripts": {
+    "start": "python3 -m http.server 8765 --bind 127.0.0.1 --directory mesh",
+    "deploy": "surge ./mesh mesh-free-ai.surge.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azikousoukaina-oss/langing-page.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azikousoukaina-oss/langing-page/issues"
+  },
+  "homepage": "https://github.com/azikousoukaina-oss/langing-page#readme",
+  "devDependencies": {
+    "surge": "^0.44.5"
+  },
+  "private": true
+}
